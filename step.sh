@@ -192,6 +192,8 @@ function device_farm_run {
     run_params+=(--test="{\"type\": \"${test_type}\",\"testPackageArn\": \"${test_package_arn}\",\"parameters\": {\"TestEnvVar\": \"foo\"}}")
     run_params+=(--output=json)
 
+    echo_details run_params
+
     if [ ! -z "$run_name_prefix" ]; then
         local run_name="${run_name_prefix}_${run_platform}_${build_version}"
         run_params+=(--name="$run_name")
