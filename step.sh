@@ -199,6 +199,7 @@ function device_farm_run {
         run_params+=(--name="$run_name")
         echo_details "Using run name '$run_name'"
     fi
+    echo_details "RUN-COMMAND-PRE: 'aws devicefarm schedule-run "${run_params[@]}" --output=json'" 
     local run_response=$(aws devicefarm schedule-run "${run_params[@]}" --output=json)
     echo_info "Run started for $run_platform!"
     echo_details "RUN-COMMAND: '$(aws devicefarm schedule-run "${run_params[@]}" --output=json)'" 
