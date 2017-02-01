@@ -193,12 +193,14 @@ function device_farm_run {
     run_params+=(--output=json)
 
     echo_details "RUN-PARAMS: '${run_params}'" 
+    echo_details 'RUN-PARAMS-MANUAL: --project-arn="$device_farm_project" --device-pool-arn="$device_pool" --app-arn="$app_arn" --test="{\"type\": \"${test_type}\",\"testPackageArn\": \"${test_package_arn}\"}" --debug'
 
     if [ ! -z "$run_name_prefix" ]; then
         local run_name="${run_name_prefix}_${run_platform}_${build_version}"
         run_params+=(--name="$run_name")
         echo_details "Using run name '$run_name'"
     fi
+    echo_details "RUN-COMMAND-PRE-PARAMS[@]: '${run_params[@]}'"
     echo_details "RUN-COMMAND-PRE: 'aws devicefarm schedule-run "${run_params[@]}" --output=json'" 
     local run_response=$(aws devicefarm schedule-run "${run_params[@]}" --output=json)
     echo_info "Run started for $run_platform!"
