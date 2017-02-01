@@ -189,10 +189,10 @@ function device_farm_run {
     run_params+=(--device-pool-arn="$device_pool")
     run_params+=(--app-arn="$app_arn")
     run_params+=(--debug)
-    run_params+=(--test="{\"type\": \"${test_type}\",\"testPackageArn\": \"${test_package_arn}\",\"parameters\": {\"TestEnvVar\": \"foo\"}}")
+    run_params+=(--test="{\"type\": \"${test_type}\",\"testPackageArn\": \"${test_package_arn}\"}")
     run_params+=(--output=json)
 
-    echo_details run_params
+    echo_details "RUN-PARAMS: '${run_params}'" 
 
     if [ ! -z "$run_name_prefix" ]; then
         local run_name="${run_name_prefix}_${run_platform}_${build_version}"
@@ -201,6 +201,7 @@ function device_farm_run {
     fi
     local run_response=$(aws devicefarm schedule-run "${run_params[@]}" --output=json)
     echo_info "Run started for $run_platform!"
+    echo_details "RUN-COMMAND: '$(aws devicefarm schedule-run "${run_params[@]}" --output=json)'" 
     echo_details "Run response: '${run_response}'"
 
     # Depending on user parameters, we either wait and poll devicefarm for the
