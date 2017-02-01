@@ -193,7 +193,8 @@ function device_farm_run {
     run_params+=(--output=json)
 
     echo_details "RUN-PARAMS: '${run_params}'" 
-    echo_details 'RUN-PARAMS-MANUAL: --project-arn="$device_farm_project" --device-pool-arn="$device_pool" --app-arn="$app_arn" --test="{\"type\": \"${test_type}\",\"testPackageArn\": \"${test_package_arn}\"}" --debug'
+    local test_params = (--project-arn="$device_farm_project" --device-pool-arn="$device_pool" --app-arn="$app_arn" --test="{\"type\": \"${test_type}\",\"testPackageArn\": \"${test_package_arn}\"}" --debug)
+    echo_details "RUN-PARAMS-MANUAL: '${test_params}"
 
     if [ ! -z "$run_name_prefix" ]; then
         local run_name="${run_name_prefix}_${run_platform}_${build_version}"
